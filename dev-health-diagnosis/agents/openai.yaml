@@ -1,0 +1,7 @@
+interface:
+  display_name: "Dev Health Diagnosis"
+  short_description: "Diagnose local dev slowdowns"
+  default_prompt: "Use $dev-health-diagnosis to diagnose why my IDE, coding agent, shell commands, Git, or dev server feels slow."
+
+policy:
+  allow_implicit_invocation: true
