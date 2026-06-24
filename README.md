@@ -1,99 +1,107 @@
 # Dev Health Diagnosis
 
-[English](README.md) | [中文](README.zh-CN.md)
+[中文](README.md) | [English](README.en.md)
 
-A Codex skill for diagnosing local development slowdowns across IDEs, coding agents, shells, Git, ports, dev servers, package managers, project indexing, proxies, and developer processes.
+一个用于诊断本地开发环境卡顿的 Codex Skill。它覆盖 IDE、AI 编程智能体、shell、Git、端口、dev server、包管理器、项目索引、代理和开发相关进程。
 
-It is designed for reports like:
+它适合这些情况：
 
-- "Codex commands are timing out."
-- "Cursor terminal is slow."
-- "Claude Code / Gemini CLI hangs when running bash."
-- "Trae / Antigravity / VS Code / JetBrains indexing feels slow."
-- "`git status` is slow."
-- "`npm run dev` starts slowly."
-- "localhost is not opening."
-- "A dev server port is already in use."
+- “Codex 执行命令总是超时。”
+- “Cursor 终端很慢。”
+- “Claude Code / Gemini CLI 运行 bash 时卡住。”
+- “Trae / Antigravity / VS Code / JetBrains 索引很慢。”
+- “`git status` 很慢。”
+- “`npm run dev` 启动很慢。”
+- “localhost 打不开。”
+- “dev server 端口被占用。”
 
-## What It Checks
+## 它会检查什么
 
-- bash/zsh startup time
-- shell config keyword hits without printing config contents
-- Git status latency and executable Git hooks
-- common or custom local ports
-- top-level project size
-- Node package manager state
-- proxy environment variable names without values
-- developer process summaries when process listing is available
+- bash/zsh 启动耗时
+- shell 配置里的可疑关键词，但不会打印配置内容
+- Git status 耗时和可执行 Git hooks
+- 常见端口或自定义端口
+- 项目顶层目录体积
+- Node 包管理器状态
+- 代理环境变量名称，但不会打印变量值
+- 在系统允许时输出开发相关进程摘要
 
-## Safety
+## 安全性
 
-This skill is read-only by default.
+这个 skill 默认只读。
 
-It does not:
+它不会：
 
-- edit `.zshrc`, `.bashrc`, or other shell config files
-- delete Git hooks
-- kill processes
-- clear caches
-- remove `node_modules`
-- upload data
-- print shell config contents
-- print proxy values
+- 修改 `.zshrc`、`.bashrc` 或其他 shell 配置
+- 删除 Git hooks
+- kill 进程
+- 清理缓存
+- 删除 `node_modules`
+- 上传数据
+- 打印 shell 配置内容
+- 打印代理变量值
 
-## Install
+## 安装
 
-Copy the skill folder into your Codex skills directory:
+把 skill 文件夹复制到 Codex skills 目录：
 
 ```bash
 cp -R dev-health-diagnosis ~/.codex/skills/
 ```
 
-Then start a new Codex session so the skill can be discovered.
+然后开启一个新的 Codex 会话，让 Codex 重新发现这个 skill。
 
-## Use
+## 使用
 
-Ask Codex:
+可以这样问 Codex：
 
 ```text
 Use $dev-health-diagnosis to diagnose why my IDE, coding agent, shell commands, Git, or dev server feels slow.
 ```
 
-## Optional Probe
+中文也可以这样说：
 
-Run the bundled read-only probe from a project directory:
+```text
+使用 $dev-health-diagnosis 帮我诊断为什么 IDE、智能体、shell 命令、Git 或 dev server 很慢。
+```
+
+## 可选诊断脚本
+
+在项目目录里运行内置只读诊断脚本：
 
 ```bash
 bash ~/.codex/skills/dev-health-diagnosis/scripts/dev-health-probe.sh "$PWD"
 ```
 
-Machine-readable output:
+输出机器可读 JSON：
 
 ```bash
 bash ~/.codex/skills/dev-health-diagnosis/scripts/dev-health-probe.sh "$PWD" --json
 ```
 
-Privacy mode that skips home shell config inspection:
+隐私模式：跳过 home 目录里的 shell 配置检查：
 
 ```bash
 bash ~/.codex/skills/dev-health-diagnosis/scripts/dev-health-probe.sh "$PWD" --no-home-config
 ```
 
-Custom ports:
+自定义端口：
 
 ```bash
 bash ~/.codex/skills/dev-health-diagnosis/scripts/dev-health-probe.sh "$PWD" --ports 3000,5173,8787
 ```
 
-## Output Philosophy
+## 输出原则
 
-The skill should produce a diagnosis, not just logs:
+这个 skill 应该输出诊断结论，而不是只贴日志。
 
-- conclusion
-- evidence
-- plain-language explanation
-- safe next step
-- risk note
+它应该包含：
+
+- 结论
+- 证据
+- 大白话解释
+- 安全的下一步
+- 风险提示
 
 ## License
 
