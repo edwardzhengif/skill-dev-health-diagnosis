@@ -1,5 +1,7 @@
 # Dev Health Diagnosis
 
+[English](README.md) | [中文](README.zh-CN.md)
+
 A Codex skill for diagnosing local development slowdowns across IDEs, coding agents, shells, Git, ports, dev servers, package managers, project indexing, proxies, and developer processes.
 
 It is designed for reports like:
